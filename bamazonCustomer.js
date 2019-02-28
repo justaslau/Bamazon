@@ -20,6 +20,12 @@ var SecondQuestion = {
 	}
 };
 
+var askContinue = {
+	type: 'confirm',
+	name: 'continue',
+	message: 'Do you wanna continue with this app?'
+}
+
 function makeConnection() {
 	connection.connect(function(err) {
 		if (err) {
@@ -27,6 +33,17 @@ function makeConnection() {
 		} else {
 			console.log("Successfully connected to database.");
 			getProducts("products");
+		}
+	});
+}
+
+// Function to detect has manager completed working with this application
+function continueApp() {
+	inquirer.prompt(askContinue).then(answers => {
+		if (answers.continue) {
+			promptFirstQuestion(FirstQuestion);
+		} else {
+			console.log("Thank you for using this application. Bye.")
 		}
 	});
 }
@@ -53,9 +70,12 @@ function checkQuantity(id, quantity) {
 			console.log("Order successfully completed.");
 			console.log("You were charged $" + totalPrice);
 			var newQuantity = res[0].stock_quantity - quantity;
+			updateSales(id, totalPrice);
 			updateQuantity(id, newQuantity);
+			continueApp();
 		} else {
 			console.log("Sorry. We don't have enough quanitity in stock to complete your order.")
+			continueApp();
 		}
 	});
 }
@@ -63,6 +83,16 @@ function checkQuantity(id, quantity) {
 function updateQuantity(id, quantity) {
 	connection.query("UPDATE products SET stock_quantity =" + quantity + " WHERE item_id=" + id, function(err, res) {
 		if (err) throw err;
+	});
+}
+
+function updateSales(id, totalPrice) {
+	connection.query("SELECT product_sales FROM products WHERE item_id=" + id, function(err, res) {
+		if (err) throw err;
+		var updatedSales = parseFloat(res[0].product_sales) + parseFloat(totalPrice);
+		connection.query("UPDATE products SET product_sales =" + updatedSales + " WHERE item_id=" + id, function(err, res) {
+			if (err) throw err;
+		});
 	});
 }
 

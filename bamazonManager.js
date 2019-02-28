@@ -184,15 +184,13 @@ function generateId(name, dep, price, qty) {
 }
 // Function to add product to database
 function addToDatabase(randomNum, name, dep, price, qty) {
-	name = connection.escape(name);
-	dep = connection.escape(dep);
-	console.log(randomNum, name, dep, price, qty);
 	connection.query("INSERT INTO products SET ?", {
 		item_id: randomNum,
 		product_name: name,
 		department_name: dep,
 		price: price,
-		stock_quantity: qty
+		stock_quantity: qty,
+		product_sales: 0
 	}, function(err, res) {
 		if (err) throw err;
 		console.log("Product successfully added to database.");
