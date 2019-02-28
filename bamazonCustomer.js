@@ -1,6 +1,6 @@
 var connection = require('./js/config');
 var inquirer = require('inquirer');
-//var dataFromDatabase;
+
 var FirstQuestion = {
 	type: 'rawlist',
 	name: 'productName',
