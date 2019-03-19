@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Will be updated.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justaslau/Bamazon.git"
+  },
+  "author": "Justas Lauzinskas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justaslau/Bamazon/issues"
+  },
+  "homepage": "https://github.com/justaslau/Bamazon#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "inquirer": "^6.2.2"
+  }
+}

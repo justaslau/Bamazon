@@ -2,7 +2,6 @@ var connection = require('./js/config');
 var inquirer = require('inquirer');
 var Table = require('cli-table');
 
-
 var supervisorOptions = {
 	type: 'rawlist',
 	name: 'supervisorOption',
